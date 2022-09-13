@@ -7,7 +7,7 @@ export interface TestProps {
 }
 
 
-const Test: JSX.Element = (props: PropsWithChildren<TestProps>): JSX.Element => {
+const Test = (props: PropsWithChildren<TestProps>): JSX.Element => {
     return <div
         style={{
             background: props.color ?? '#fff'
