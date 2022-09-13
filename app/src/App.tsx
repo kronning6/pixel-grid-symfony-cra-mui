@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Test from './components/Test';
 import { Button } from "@mui/material";
 
 function App() {
@@ -11,9 +12,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <Button>
-          Learn React
-        </Button>
+        <Test name="Kyle" color="#ff0000">
+          <p>Hi there</p>
+        </Test>
       </header>
     </div>
   );
