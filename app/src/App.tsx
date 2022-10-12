@@ -1,22 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Button } from "@mui/material";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ThemeProvider from './components/mui/ThemeProvider/ThemeProvider';
+import Dashboard from './components/Dashboard/Dashboard';
 
-function App() {
+const App = (): JSX.Element => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Button>
-          Learn React
-        </Button>
-      </header>
-    </div>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          {/* Dashboard routes */}
+          <Route path="/" element={<Dashboard />}>
+            <Route index element={<div>Grid</div>} />
+            <Route path="profile" element={<div>Profile</div>} />
+          </Route>
+          {/* End of Dashboard routes */}
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
