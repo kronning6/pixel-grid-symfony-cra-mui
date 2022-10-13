@@ -1,11 +1,16 @@
-import React, { PropsWithChildren } from 'react';
-import { Outlet } from 'react-router-dom';
-import Box from '../mui/Box/Box';
+import React from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import AppBar from '../mui/AppBar/AppBar';
+import Autocomplete from '../mui/Autocomplete/Autocomplete';
+import Box from '../mui/Box/Box';
+import TextField from '../mui/TextField/TextField';
 import Toolbar from '../mui/Toolbar/Toolbar';
 import Typography from '../mui/Typography/Typography';
+import IconButton from '../mui/IconButton/IconButton';
+import EditProfileIcon from '../mui/icons/EditProfileIcon';
 
-const Dashboard = (props: PropsWithChildren): JSX.Element => {
+const Dashboard = (): JSX.Element => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -21,7 +26,23 @@ const Dashboard = (props: PropsWithChildren): JSX.Element => {
             <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
               PixelGrid
             </Typography>
-            <Box>Current User</Box>
+            <Box
+              sx={{
+                display: 'flex',
+              }}
+            >
+              <Autocomplete
+                sx={{
+                  width: '200px',
+                }}
+                size={'small'}
+                options={[{ label: 'Kyle Ronning', value: '1' }]}
+                renderInput={(params) => <TextField color={'error'} {...params} label="User" />}
+              />
+              <IconButton sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('profile')}>
+                <EditProfileIcon />
+              </IconButton>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>
