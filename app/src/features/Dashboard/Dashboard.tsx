@@ -1,13 +1,13 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import AppBar from '../mui/AppBar/AppBar';
-import Autocomplete from '../mui/Autocomplete/Autocomplete';
-import Box from '../mui/Box/Box';
-import TextField from '../mui/TextField/TextField';
-import Toolbar from '../mui/Toolbar/Toolbar';
-import Typography from '../mui/Typography/Typography';
-import IconButton from '../mui/IconButton/IconButton';
-import EditProfileIcon from '../mui/icons/EditProfileIcon';
+import AppBar from '../../components/mui/AppBar/AppBar';
+import Autocomplete from '../../components/mui/Autocomplete/Autocomplete';
+import Box from '../../components/mui/Box/Box';
+import TextField from '../../components/mui/TextField/TextField';
+import Toolbar from '../../components/mui/Toolbar/Toolbar';
+import Typography from '../../components/mui/Typography/Typography';
+import IconButton from '../../components/mui/IconButton/IconButton';
+import EditProfileIcon from '../../components/mui/icons/EditProfileIcon';
 
 const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
