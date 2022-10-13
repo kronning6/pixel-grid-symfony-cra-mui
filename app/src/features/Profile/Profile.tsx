@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Box from '../mui/Box/Box';
-import Button from '../mui/Button/Button';
-import Stack from '../mui/Stack/Stack';
-import TextField from '../mui/TextField/TextField';
-import Typography from '../mui/Typography/Typography';
-import Pixel from '../Pixel/Pixel';
+import Box from '../../components/mui/Box/Box';
+import Button from '../../components/mui/Button/Button';
+import Stack from '../../components/mui/Stack/Stack';
+import TextField from '../../components/mui/TextField/TextField';
+import Typography from '../../components/mui/Typography/Typography';
+import Pixel from '../../components/Pixel/Pixel';
 
 const Profile = (): JSX.Element => {
   const navigate = useNavigate();

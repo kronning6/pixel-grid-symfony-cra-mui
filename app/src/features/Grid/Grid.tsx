@@ -1,6 +1,6 @@
 import React from 'react';
-import Box from '../mui/Box/Box';
-import Pixel from '../Pixel/Pixel';
+import Box from '../../components/mui/Box/Box';
+import Pixel from '../../components/Pixel/Pixel';
 
 const Grid = (): JSX.Element => {
   // Temp data

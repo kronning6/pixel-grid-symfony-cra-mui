@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ThemeProvider from './components/mui/ThemeProvider/ThemeProvider';
 import Dashboard from './components/Dashboard/Dashboard';
-import Grid from './components/Grid/Grid';
-import Profile from './components/Profile/Profile';
+import Grid from './features/Grid/Grid';
+import Profile from './features/Profile/Profile';
 
 const App = (): JSX.Element => {
   return (
