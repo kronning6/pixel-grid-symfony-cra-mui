@@ -11,6 +11,13 @@ import EditProfileIcon from '../mui/icons/EditProfileIcon';
 
 const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
+  const users = [
+    { fullName: 'Kyle Ronning', id: 1 },
+    { fullName: 'Det Sorthepharack', id: 2 },
+    { fullName: 'John Cloeter', id: 3 },
+    { fullName: 'Matt Bouc', id: 4 },
+    { fullName: 'Maxwell Lafontant', id: 5 },
+  ];
   return (
     <Box
       sx={{
@@ -36,8 +43,8 @@ const Dashboard = (): JSX.Element => {
                   width: '200px',
                 }}
                 size={'small'}
-                options={[{ label: 'Kyle Ronning', value: '1' }]}
-                renderInput={(params) => <TextField color={'error'} {...params} label="User" />}
+                options={users.map((user) => ({ label: user.fullName, value: user.id.toString() }))}
+                renderInput={(params) => <TextField color={'primary'} {...params} label="User" />}
               />
               <IconButton sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('profile')}>
                 <EditProfileIcon />

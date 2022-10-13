@@ -15,6 +15,9 @@ const ThemeProvider = (props: PropsWithChildren) => {
           disableRipple: true,
         },
       },
+      MuiAutocomplete: {
+        styleOverrides: {},
+      },
     },
   });
 
