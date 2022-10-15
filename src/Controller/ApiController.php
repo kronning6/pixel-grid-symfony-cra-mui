@@ -4,14 +4,11 @@ namespace App\Controller;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Controller extends AbstractController
+class ApiController extends AbstractController
 {
-    #[Route('/')]
-    #[Route('/health')]
-    public function health(): Response {
-        return new Response();
-    }
+    protected const BASE_URL = '/api';
 }
