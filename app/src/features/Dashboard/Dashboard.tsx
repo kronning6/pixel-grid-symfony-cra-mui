@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+// Layout
 import AppBar from '../../components/mui/AppBar/AppBar';
 import Autocomplete from '../../components/mui/Autocomplete/Autocomplete';
 import Box from '../../components/mui/Box/Box';
@@ -9,16 +10,17 @@ import Typography from '../../components/mui/Typography/Typography';
 import IconButton from '../../components/mui/IconButton/IconButton';
 import AdminToolsIcon from '../../components/mui/icons/AdminToolsIcon';
 import EditProfileIcon from '../../components/mui/icons/EditProfileIcon';
+// Hooks
+import { useAppDispatch, useAppSelector } from '../../core/hooks';
+import { setUser } from './dashboardSlice';
+import { useGetUsersQuery } from '../../services/userApi';
 
 const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
-  const users = [
-    { fullName: 'Kyle Ronning', id: 1 },
-    { fullName: 'Det Sorthepharack', id: 2 },
-    { fullName: 'John Cloeter', id: 3 },
-    { fullName: 'Matt Bouc', id: 4 },
-    { fullName: 'Maxwell Lafontant', id: 5 },
-  ];
+  const user = useAppSelector((state) => state.dashboard.user);
+  const dispatch = useAppDispatch();
+  const { data: users } = useGetUsersQuery();
+
   return (
     <Box
       sx={{
@@ -43,10 +45,13 @@ const Dashboard = (): JSX.Element => {
                 width: '200px',
               }}
               size={'small'}
-              options={users.map((user) => ({ label: user.fullName, value: user.id.toString() }))}
+              options={(users ?? [])
+                .map((user) => ({ label: `${user.firstName} ${user.lastName}`, value: user.id.toString() }))
+                .sort((a, b) => a.label.localeCompare(b.label))}
               renderInput={(params) => <TextField color={'primary'} {...params} label="User" />}
+              //onChange={(event) => dispatch(setUser(event.target))}
             />
-            <IconButton sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('profile')}>
+            <IconButton disabled={!user} sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('profile')}>
               <EditProfileIcon />
             </IconButton>
             <IconButton sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('admin')}>
@@ -60,6 +65,7 @@ const Dashboard = (): JSX.Element => {
           display: 'flex',
           height: '100%',
           width: '100%',
+          paddingBottom: '100px',
         }}
       >
         <Outlet />

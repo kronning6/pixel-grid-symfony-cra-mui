@@ -1,8 +1,9 @@
 import baseApi from './baseApi';
+import ApiUserResource from '../types/ApiUserResource';
 
 const extendedApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getUsers: build.query({
+    getUsers: build.query<ApiUserResource[], void>({
       query: () => 'users',
     }),
   }),

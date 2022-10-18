@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseApi = createApi({
-  // TODO Update baseUrl to be from ENV
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_API_URL }),
   endpoints: () => ({}),
 });
 

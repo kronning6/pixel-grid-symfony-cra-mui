@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import ApiUserResource from '../../types/ApiUserResource';
 
 export const DASHBOARD_SLICE_NAME = 'dashboard';
 
 export interface DashboardState {
-  value: number;
+  user: ApiUserResource | null;
 }
 
 const initialState: DashboardState = {
-  value: 0,
+  user: null,
 };
 
 export const dashboardSlice = createSlice({
@@ -16,18 +17,12 @@ export const dashboardSlice = createSlice({
   name: DASHBOARD_SLICE_NAME,
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    setUser: (state, action: PayloadAction<ApiUserResource | null>) => {
+      state.user = action.payload;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = dashboardSlice.actions;
+export const { setUser } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
