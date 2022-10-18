@@ -13,18 +13,20 @@ import AdminToolsIcon from '../../components/mui/icons/AdminToolsIcon';
 import EditProfileIcon from '../../components/mui/icons/EditProfileIcon';
 // Hooks
 import { useAppDispatch, useAppSelector } from '../../core/hooks';
-import { setUser } from './dashboardSlice';
+import { setTheme, setUser } from './dashboardSlice';
 import { useGetUsersQuery } from '../../services/userApi';
 import ApiUserResource from '../../types/ApiUserResource';
 
 const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.dashboard.user);
+  const fg = useAppSelector((state) => state.dashboard.fg);
+  const bg = useAppSelector((state) => state.dashboard.bg);
   const dispatch = useAppDispatch();
   const { data: users } = useGetUsersQuery();
 
   return (
-    <ThemeProvider>
+    <ThemeProvider fg={fg} bg={bg}>
       <Box
         sx={{
           display: 'flex',
@@ -52,18 +54,22 @@ const Dashboard = (): JSX.Element => {
                   .map((user) => user)
                   .sort((a, b) => `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`))}
                 renderInput={(params) => <TextField color={'primary'} {...params} label="User" />}
-                onChange={(event, newValue: ApiUserResource | null) => dispatch(setUser(newValue))}
+                onChange={(event, newValue: ApiUserResource | null) => {
+                  dispatch(setUser(newValue));
+                  dispatch(
+                    setTheme({
+                      fg: newValue?.foregroundColor,
+                      bg: newValue?.backgroundColor,
+                    }),
+                  );
+                }}
                 getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
                 value={user}
               />
-              <IconButton
-                disabled={!user}
-                sx={{ color: '#fff', marginLeft: '5px' }}
-                onClick={() => navigate('profile')}
-              >
+              <IconButton disabled={!user} sx={{ color: fg, marginLeft: '5px' }} onClick={() => navigate('profile')}>
                 <EditProfileIcon />
               </IconButton>
-              <IconButton sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('admin')}>
+              <IconButton sx={{ color: fg, marginLeft: '5px' }} onClick={() => navigate('admin')}>
                 <AdminToolsIcon />
               </IconButton>
             </Box>
