@@ -14,6 +14,7 @@ import EditProfileIcon from '../../components/mui/icons/EditProfileIcon';
 import { useAppDispatch, useAppSelector } from '../../core/hooks';
 import { setUser } from './dashboardSlice';
 import { useGetUsersQuery } from '../../services/userApi';
+import ApiUserResource from '../../types/ApiUserResource';
 
 const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
@@ -46,10 +47,12 @@ const Dashboard = (): JSX.Element => {
               }}
               size={'small'}
               options={(users ?? [])
-                .map((user) => ({ label: `${user.firstName} ${user.lastName}`, value: user.id.toString() }))
-                .sort((a, b) => a.label.localeCompare(b.label))}
+                .map((user) => user)
+                .sort((a, b) => `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`))}
               renderInput={(params) => <TextField color={'primary'} {...params} label="User" />}
-              //onChange={(event) => dispatch(setUser(event.target))}
+              onChange={(event, newValue: ApiUserResource | null) => dispatch(setUser(newValue))}
+              getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+              value={user}
             />
             <IconButton disabled={!user} sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('profile')}>
               <EditProfileIcon />

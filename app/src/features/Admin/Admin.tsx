@@ -31,7 +31,7 @@ const Admin = (): JSX.Element => {
           TODO - Add Pixels
         </Box>
         <Box mt={2} textAlign="center">
-          TODO - Add Pixels
+          TODO - Add User
         </Box>
         <Box mt={2} textAlign="center">
           TODO - Delete User
