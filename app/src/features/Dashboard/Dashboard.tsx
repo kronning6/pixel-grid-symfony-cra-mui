@@ -5,6 +5,7 @@ import AppBar from '../../components/mui/AppBar/AppBar';
 import Autocomplete from '../../components/mui/Autocomplete/Autocomplete';
 import Box from '../../components/mui/Box/Box';
 import TextField from '../../components/mui/TextField/TextField';
+import ThemeProvider from '../../components/mui/ThemeProvider/ThemeProvider';
 import Toolbar from '../../components/mui/Toolbar/Toolbar';
 import Typography from '../../components/mui/Typography/Typography';
 import IconButton from '../../components/mui/IconButton/IconButton';
@@ -23,57 +24,63 @@ const Dashboard = (): JSX.Element => {
   const { data: users } = useGetUsersQuery();
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        width: '100%',
-      }}
-    >
-      <AppBar position="sticky">
-        <Toolbar>
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            PixelGrid
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-            }}
-          >
-            <Autocomplete
-              sx={{
-                width: '200px',
-              }}
-              size={'small'}
-              options={(users ?? [])
-                .map((user) => user)
-                .sort((a, b) => `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`))}
-              renderInput={(params) => <TextField color={'primary'} {...params} label="User" />}
-              onChange={(event, newValue: ApiUserResource | null) => dispatch(setUser(newValue))}
-              getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-              value={user}
-            />
-            <IconButton disabled={!user} sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('profile')}>
-              <EditProfileIcon />
-            </IconButton>
-            <IconButton sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('admin')}>
-              <AdminToolsIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
+    <ThemeProvider>
       <Box
         sx={{
           display: 'flex',
+          flexDirection: 'column',
           height: '100%',
           width: '100%',
-          paddingBottom: '100px',
         }}
       >
-        <Outlet />
+        <AppBar position="sticky">
+          <Toolbar>
+            <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
+              PixelGrid
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+              }}
+            >
+              <Autocomplete
+                sx={{
+                  width: '200px',
+                }}
+                size={'small'}
+                options={(users ?? [])
+                  .map((user) => user)
+                  .sort((a, b) => `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`))}
+                renderInput={(params) => <TextField color={'primary'} {...params} label="User" />}
+                onChange={(event, newValue: ApiUserResource | null) => dispatch(setUser(newValue))}
+                getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                value={user}
+              />
+              <IconButton
+                disabled={!user}
+                sx={{ color: '#fff', marginLeft: '5px' }}
+                onClick={() => navigate('profile')}
+              >
+                <EditProfileIcon />
+              </IconButton>
+              <IconButton sx={{ color: '#fff', marginLeft: '5px' }} onClick={() => navigate('admin')}>
+                <AdminToolsIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+            paddingBottom: '100px',
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
 
