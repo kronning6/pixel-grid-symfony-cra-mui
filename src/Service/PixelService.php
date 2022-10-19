@@ -63,6 +63,8 @@ class PixelService
         }
         if ($userId) {
             $pixel->setUserId((int) $userId);
+        } else {
+            $pixel->setUserId(null);
         }
         $this->pixelRepository->add($pixel, true);
         return $pixel;
