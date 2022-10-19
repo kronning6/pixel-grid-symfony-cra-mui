@@ -62,6 +62,9 @@ const Dashboard = (): JSX.Element => {
                       bg: newValue?.backgroundColor,
                     }),
                   );
+                  if (!newValue) {
+                    navigate('/');
+                  }
                 }}
                 getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
                 value={user}

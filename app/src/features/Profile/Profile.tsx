@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Layout
 import Box from '../../components/mui/Box/Box';
@@ -9,10 +9,22 @@ import TextField from '../../components/mui/TextField/TextField';
 import Typography from '../../components/mui/Typography/Typography';
 // Hooks
 import { useAppSelector } from '../../core/hooks';
+import { useUpdateUserMutation } from '../../services/userApi';
 
 const Profile = (): JSX.Element => {
   const navigate = useNavigate();
+  // Global state
   const user = useAppSelector((state) => state.dashboard.user);
+  const [updateUser] = useUpdateUserMutation();
+  // Local state
+  const [fg, setFg] = useState<string>(user?.foregroundColor ?? '');
+  const [bg, setBg] = useState<string>(user?.backgroundColor ?? '');
+
+  useEffect(() => {
+    setFg(user?.foregroundColor ?? '');
+    setBg(user?.backgroundColor ?? '');
+  }, [user]);
+
   if (!user) {
     return <Box />;
   }
@@ -42,16 +54,34 @@ const Profile = (): JSX.Element => {
           <Pixel
             label={user.firstName.substring(0, 1) + user.lastName.substring(0, 1)}
             size={400}
-            backgroundColor="lightgrey"
-            color="darkgrey"
+            backgroundColor={bg}
+            color={fg}
           />
         </Box>
         <Stack mt={8} spacing={1} direction="row" flex={1} justifyContent="space-between">
-          <TextField label="Foreground" placeholder="#ffffff" />
-          <TextField label="Background" placeholder="#000000" />
+          <TextField
+            label="Foreground"
+            placeholder="#ffffff"
+            value={fg}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFg(event.target.value)}
+          />
+          <TextField
+            label="Background"
+            placeholder="#000000"
+            value={bg}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setBg(event.target.value)}
+          />
         </Stack>
         <Stack mt={3} spacing={1}>
-          <Button variant="contained" color="primary" size="large">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            disabled={!fg || !bg}
+            onClick={() => {
+              updateUser({ ...user, foregroundColor: fg, backgroundColor: bg });
+            }}
+          >
             Update
           </Button>
         </Stack>
