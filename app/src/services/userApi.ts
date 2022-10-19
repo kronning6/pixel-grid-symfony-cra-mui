@@ -6,6 +6,7 @@ const extendedApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getUsers: build.query<ApiUserResource[], void>({
       query: () => 'users',
+      providesTags: ['Users'],
     }),
     updateUser: build.mutation<ApiUserResource, Partial<ApiUserResource>>({
       query: (data) => ({
@@ -22,6 +23,7 @@ const extendedApi = baseApi.injectEndpoints({
           console.error('do nothing');
         }
       },
+      invalidatesTags: ['Pixels'],
     }),
   }),
   overrideExisting: false,

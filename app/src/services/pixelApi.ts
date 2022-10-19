@@ -21,7 +21,7 @@ const extendedApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
-      //invalidatesTags: ['Pixels'],
+      invalidatesTags: ['Pixels'],
     }),
   }),
   overrideExisting: false,
