@@ -1,7 +1,7 @@
 
-# Kipsu Support Scheduler
+# PixelGrid - The original implementation
 
-Helps with support scheduling
+PHP, Symfony, React, Redux Toolkit/RTK Query, MUI
 
 ## Run
 
